@@ -1,0 +1,196 @@
+Option Strict On
+Option Explicit On
+'==============================================================================
+'Project:   Lab 1
+'Tital:     Lab1
+'File Name: 
+'
+'Author:    Caitlin McMurchie
+'Class:     CS 161 Winter, 2017
+'
+'Description:   
+'==============================================================================
+'Known Bugs:    
+'==============================================================================
+Public Class frmLab1
+
+    Dim graPanel As Graphics
+    Dim bmpPanel As Bitmap
+    Dim cshtX As Short
+    Dim cshtY As Short
+
+    Private Sub btnExit_Click(sender As Object, e As EventArgs) _
+        Handles btnExit.Click
+        '======================================================================
+        ' Discription:  closes the form after giving you a message
+        '======================================================================
+        MessageBox.Show("               Bye!      ")
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub btnRandomDots_Click(sender As Object, e As EventArgs) _
+        Handles btnRandomDots.Click
+        '======================================================================
+        'Description:   asks the user for how many dots they to see
+        '               and then displays that many randomly collered
+        '               dots in random locations
+        '======================================================================
+        Dim strDots As String
+        Dim i As Integer = 0
+        Dim j As Integer = 0
+
+        Dim intW As Integer = pnlDraw.Width - 1
+        Dim intH As Integer = pnlDraw.Height - 1
+        Dim intX As Integer
+        Dim intY As Integer
+
+        strDots = InputBox("How many dots do you want?", "Dots amount", "0")
+        Dim rand As New Random
+
+        For i = 0 To CInt(strDots)
+            intX = CInt(intW * Rnd())
+            intY = CInt(intH * Rnd())
+
+            bmpPanel.SetPixel(intX, intY, Color.FromArgb _
+                (rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)))
+
+            Call sUpdateScreen()
+        Next i
+
+    End Sub
+
+
+    Private Sub frmLab1_Load(sender As Object, e As EventArgs) _
+        Handles MyBase.Load
+        '======================================================================
+        'Description:   Main form, loads graphics object and bitmap
+        '======================================================================
+
+        lblInfo.Text = "Hello! Thank you for trying my project <3!"
+
+        graPanel = pnlDraw.CreateGraphics
+        bmpPanel = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
+
+    End Sub
+
+    Private Sub btnGradient_Click(sender As Object, e As EventArgs) _
+        Handles btnGradient.Click
+        '======================================================================
+        'Description:   when clicked draws a red and black gradient
+        '======================================================================
+        Dim intx As Integer = pnlDraw.Width - 1
+        Dim intY As Integer = pnlDraw.Height - 1
+
+
+
+    End Sub
+
+    Private Sub btnPicture_Click(sender As Object, e As EventArgs) _
+        Handles btnPicture.Click
+        '======================================================================
+        'Description:   
+        '======================================================================
+        Dim bmpCopy As Bitmap
+        bmpCopy = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
+
+        graPanel = pnlDraw.CreateGraphics
+        bmpPanel = New Bitmap("..\Images\pitbull-puppies10.jpg")
+        cshtX = CShort(bmpPanel.Width)
+        cshtY = CShort(bmpPanel.Height)
+        bmpCopy = New Bitmap(cshtX, cshtY, graPanel)
+
+        Call sUpdateScreen()
+
+    End Sub
+
+    Private Sub btnConnect_Click(sender As Object, e As EventArgs) _
+        Handles btnConnect.Click
+        '======================================================================
+        'Description:   
+        '======================================================================
+
+    End Sub
+
+    Private Sub btnShapes_Click(sender As Object, e As EventArgs) _
+        Handles btnShapes.Click
+        '======================================================================
+        'Description:   
+        '======================================================================
+        Dim pntList(2) As Point
+        Dim clrTemp(2) As Color
+        Dim bytColor(2) As Byte
+        Dim penTemp As Pen = Pens.Pink
+        Dim bshTemp As SolidBrush = New SolidBrush(Color.Azure)
+        Dim bytCount As Byte
+
+        Dim i As Integer
+        Dim j As Integer
+
+        pntList(0).X = 255
+        pntList(0).Y = 5
+        pntList(1).X = 200
+        pntList(1).Y = 50
+        pntList(2).X = 115
+        pntList(2).Y = 150
+
+        clrTemp(0) = Color.Honeydew
+        clrTemp(1) = Color.Firebrick
+        clrTemp(2) = Color.Green
+
+        cshtX = CShort(Int(pnlDraw.Width / 2.5))
+        cshtY = CShort(Int(pnlDraw.Height / 1.8))
+
+        For i = 0 To 2
+            For j = 0 To 2
+                bytColor(j) = CByte(Rnd() * 255)
+            Next j
+            clrTemp(i) = Color.FromArgb(bytColor(0), bytColor(1), bytColor(2))
+        Next i
+
+        penTemp = New Pen(clrTemp(0))
+        bshTemp.Color = clrTemp(1)
+
+        Select Case bytCount
+            Case 0
+                graPanel.FillRectangle(bshTemp, cshtX, cshtY, 160, 60)
+                graPanel.DrawRectangle(penTemp, cshtX, cshtY, 160, 60)
+
+                bytCount += CByte(1)
+            Case 1
+                graPanel.DrawPolygon(penTemp, pntList)
+
+                bytCount += CByte(1)
+            Case 2
+
+                graPanel.DrawEllipse(penTemp, 450, 100, 75, 75)
+
+
+                bytCount = CByte(0)
+        End Select
+
+
+    End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) _
+        Handles btnReset.Click
+        '======================================================================
+        'Description:   clears bmpmap
+        '======================================================================
+
+        graPanel.Clear(pnlDraw.BackColor)
+        bmpPanel.Dispose()
+        bmpPanel = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
+        Call sUpdateScreen()
+
+    End Sub
+
+    Private Sub sUpdateScreen()
+
+        graPanel.DrawImageUnscaled(bmpPanel, 0, 0)
+
+    End Sub
+
+
+End Class
