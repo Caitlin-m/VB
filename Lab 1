@@ -9,6 +9,18 @@ Option Explicit On
 'Class:     CS 161 Winter, 2017
 '
 'Description:   
+'           btnPictures: displays a picture and a mirror image
+'           btnGradient: displays a red and black gradient, and a green and
+'                        black gradient
+'           btnSahpes:   displays a rectangle that is filled in, a outline of
+'                        a polygon, and a ball
+'           btnDots:     displays a number of randomly collerd dots, number is
+'                        determened by the user
+'           btnConnect:  displays three shapes, draws a gradient line between
+'                        two, and then another gradient line between the 
+'                        third and first
+'           btnReset:    clears the screen and displays the welcome message
+'           btnExit:     closes the form and displays a goodbye message
 '==============================================================================
 'Known Bugs:    
 '==============================================================================
@@ -18,13 +30,14 @@ Public Class frmLab1
     Dim bmpPanel As Bitmap
     Dim cshtX As Short
     Dim cshtY As Short
-
+    Dim CbytCount As Byte
+    Dim bmpCopy As Bitmap
     Private Sub btnExit_Click(sender As Object, e As EventArgs) _
         Handles btnExit.Click
         '======================================================================
-        ' Discription:  closes the form after giving you a message
+        ' Discription:  closes the form and gives a goodbye message
         '======================================================================
-        MessageBox.Show("               Bye!      ")
+        MessageBox.Show("       Bye!        ")
 
         Me.Close()
 
@@ -49,6 +62,10 @@ Public Class frmLab1
         strDots = InputBox("How many dots do you want?", "Dots amount", "0")
         Dim rand As New Random
 
+        Call Reset()
+
+        lblInfo.Text = " "
+
         For i = 0 To CInt(strDots)
             intX = CInt(intW * Rnd())
             intY = CInt(intH * Rnd())
@@ -65,7 +82,8 @@ Public Class frmLab1
     Private Sub frmLab1_Load(sender As Object, e As EventArgs) _
         Handles MyBase.Load
         '======================================================================
-        'Description:   Main form, loads graphics object and bitmap
+        'Description:   Main form, loads graphics object and bitmap, and gives
+        '               the user a message in lblInfo
         '======================================================================
 
         lblInfo.Text = "Hello! Thank you for trying my project <3!"
@@ -78,30 +96,44 @@ Public Class frmLab1
     Private Sub btnGradient_Click(sender As Object, e As EventArgs) _
         Handles btnGradient.Click
         '======================================================================
-        'Description:   when clicked draws a red and black gradient
+        'Description:   displays three shapes, draws a gradient line between
+        '               two, and then another gradient line between the 
+        '               third and first
         '======================================================================
         Dim intx As Integer = pnlDraw.Width - 1
         Dim intY As Integer = pnlDraw.Height - 1
-
-
 
     End Sub
 
     Private Sub btnPicture_Click(sender As Object, e As EventArgs) _
         Handles btnPicture.Click
         '======================================================================
-        'Description:   
+        'Description:   loads a picture and a mirror copy of the picture
         '======================================================================
-        Dim bmpCopy As Bitmap
-        bmpCopy = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
+
+        Dim i As Integer
+        Dim j As Integer
+        Dim clrtmp As Color
+
+        cshtX = CShort(bmpPanel.Width)
+        cshtY = CShort(bmpPanel.Height)
 
         graPanel = pnlDraw.CreateGraphics
         bmpPanel = New Bitmap("..\Images\pitbull-puppies10.jpg")
         cshtX = CShort(bmpPanel.Width)
         cshtY = CShort(bmpPanel.Height)
         bmpCopy = New Bitmap(cshtX, cshtY, graPanel)
+        bmpCopy = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
+
+        For i = 0 To cshtX - 1
+            For j = 0 To cshtY - 1
+                clrtmp = bmpPanel.GetPixel(i, j)
+                bmpCopy.SetPixel(cshtX - 1 - i, j, clrtmp)
+            Next j
+        Next i
 
         Call sUpdateScreen()
+        graPanel.DrawImageUnscaled(bmpCopy, cshtX + 5, 0)
 
     End Sub
 
@@ -110,26 +142,29 @@ Public Class frmLab1
         '======================================================================
         'Description:   
         '======================================================================
+        Dim penTmp As Pen = Pens.Crimson
+        Dim bshTmp As Brush = New SolidBrush(Color.Fuchsia)
+
 
     End Sub
 
     Private Sub btnShapes_Click(sender As Object, e As EventArgs) _
         Handles btnShapes.Click
         '======================================================================
-        'Description:   
+        'Description:   displays 3 shapes, one filled in one an outline and
+        '               ball
         '======================================================================
         Dim pntList(2) As Point
         Dim clrTemp(2) As Color
         Dim bytColor(2) As Byte
         Dim penTemp As Pen = Pens.Pink
         Dim bshTemp As SolidBrush = New SolidBrush(Color.Azure)
-        Dim bytCount As Byte
 
         Dim i As Integer
         Dim j As Integer
 
         pntList(0).X = 255
-        pntList(0).Y = 5
+        pntList(0).Y = 35
         pntList(1).X = 200
         pntList(1).Y = 50
         pntList(2).X = 115
@@ -152,22 +187,22 @@ Public Class frmLab1
         penTemp = New Pen(clrTemp(0))
         bshTemp.Color = clrTemp(1)
 
-        Select Case bytCount
+        Select Case CbytCount
             Case 0
                 graPanel.FillRectangle(bshTemp, cshtX, cshtY, 160, 60)
                 graPanel.DrawRectangle(penTemp, cshtX, cshtY, 160, 60)
 
-                bytCount += CByte(1)
+                CbytCount += CByte(1)
             Case 1
                 graPanel.DrawPolygon(penTemp, pntList)
+                CbytCount += CByte(1)
 
-                bytCount += CByte(1)
             Case 2
 
                 graPanel.DrawEllipse(penTemp, 450, 100, 75, 75)
 
 
-                bytCount = CByte(0)
+                CbytCount = CByte(0)
         End Select
 
 
@@ -175,14 +210,8 @@ Public Class frmLab1
 
     Private Sub btnReset_Click(sender As Object, e As EventArgs) _
         Handles btnReset.Click
-        '======================================================================
-        'Description:   clears bmpmap
-        '======================================================================
 
-        graPanel.Clear(pnlDraw.BackColor)
-        bmpPanel.Dispose()
-        bmpPanel = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
-        Call sUpdateScreen()
+        Call Reset()
 
     End Sub
 
@@ -192,5 +221,17 @@ Public Class frmLab1
 
     End Sub
 
+    Private Sub Reset()
+        '======================================================================
+        'Description:   clears bmpmap
+        '======================================================================
+
+        graPanel.Clear(pnlDraw.BackColor)
+        bmpPanel.Dispose()
+        bmpPanel = New Bitmap(pnlDraw.Width, pnlDraw.Height, graPanel)
+        Call sUpdateScreen()
+        lblInfo.Text = "Hello! Thank you for trying my project <3!"
+
+    End Sub
 
 End Class
