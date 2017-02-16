@@ -140,10 +140,36 @@ Public Class frmLab1
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) _
         Handles btnConnect.Click
         '======================================================================
-        'Description:   
+        'Description:   draws three shapes and then draws a three gradient
+        '               connecting them, the gradient lines change depending
+        '               on the color of the shape they originate from
         '======================================================================
-        Dim penTmp As Pen = Pens.Crimson
-        Dim bshTmp As Brush = New SolidBrush(Color.Fuchsia)
+        Dim pen1 As Pen = Pens.Crimson
+        Dim bsh1 As Brush = New SolidBrush(Color.Fuchsia)
+        Dim pen2 As Pen = Pens.BlueViolet
+        Dim bsh2 As Brush = New SolidBrush(Color.MediumSlateBlue)
+        Dim pen3 As Pen = Pens.SteelBlue
+        Dim bsh3 As Brush = New SolidBrush(Color.DarkSalmon)
+        Dim rctElip As Rectangle = New Rectangle(50, 90, 100, 150)
+        Dim pntPoly(2) As Point
+        Dim rctRec As Rectangle = New Rectangle(200, 200, 100, 75)
+
+
+        pntPoly(0).X = 400
+        pntPoly(0).Y = 200
+        pntPoly(1).X = 500
+        pntPoly(1).Y = 50
+        pntPoly(2).X = 300
+        pntPoly(2).Y = 100
+
+        graPanel.DrawEllipse(pen1, rctElip)
+        graPanel.FillEllipse(bsh1, rctElip)
+
+        graPanel.DrawPolygon(pen2, pntPoly)
+        graPanel.FillPolygon(bsh2, pntPoly)
+
+        graPanel.DrawRectangle(pen3, rctRec)
+        graPanel.FillRectangle(bsh3, rctRec)
 
 
     End Sub
@@ -151,14 +177,16 @@ Public Class frmLab1
     Private Sub btnShapes_Click(sender As Object, e As EventArgs) _
         Handles btnShapes.Click
         '======================================================================
-        'Description:   displays 3 shapes, one filled in one an outline and
-        '               ball
+        'Description:   displays 3 shapes, one filled in, one an outline and
+        '               one ball
         '======================================================================
         Dim pntList(2) As Point
         Dim clrTemp(2) As Color
         Dim bytColor(2) As Byte
         Dim penTemp As Pen = Pens.Pink
         Dim bshTemp As SolidBrush = New SolidBrush(Color.Azure)
+        Dim bshBall As SolidBrush = New SolidBrush(Color.Orange)
+        Dim penBall As Pen = Pens.Brown
 
         Dim i As Integer
         Dim j As Integer
@@ -198,9 +226,9 @@ Public Class frmLab1
                 CbytCount += CByte(1)
 
             Case 2
-
-                graPanel.DrawEllipse(penTemp, 450, 100, 75, 75)
-
+                graPanel.DrawEllipse(penBall, 450, 100, 75, 75)
+                graPanel.FillEllipse(bshBall, 450, 100, 75, 75)
+                graPanel.DrawArc(penBall, 450, 100, 10, 50, 10, 90)
 
                 CbytCount = CByte(0)
         End Select
@@ -223,7 +251,7 @@ Public Class frmLab1
 
     Private Sub Reset()
         '======================================================================
-        'Description:   clears bmpmap
+        'Description:   clears bmpmap and resets the welcome message
         '======================================================================
 
         graPanel.Clear(pnlDraw.BackColor)
