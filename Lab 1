@@ -100,8 +100,36 @@ Public Class frmLab1
         '               two, and then another gradient line between the 
         '               third and first
         '======================================================================
-        Dim intx As Integer = pnlDraw.Width - 1
-        Dim intY As Integer = pnlDraw.Height - 1
+        Dim i As Integer
+        Dim intW As Integer = pnlDraw.Width
+        Dim intH As Integer = pnlDraw.Height
+        Dim intX As Integer
+        Dim intY As Integer
+        Dim bytR As Byte
+        Dim bytG As Byte
+        Dim clrPoint As Color
+
+        lblInfo.Text = " "
+
+        intY = intH \ 2
+        For intX = 0 To intW - 1
+            bytG = CByte(intX / (intW - 1) * 255)
+            clrPoint = Color.FromArgb(0, bytG, 0)
+            For i = -5 To 10
+                bmpPanel.SetPixel(intX, intY + i, clrPoint)
+            Next i
+            graPanel.DrawImageUnscaled(bmpPanel, 0, 0)
+        Next intX
+
+        intX = intW \ 2
+        For intY = 0 To intH - 1
+            bytR = CByte(intY / (intH - 1) * 255)
+            clrPoint = Color.FromArgb(bytR, 0, 0)
+            For i = -10 To 9
+                bmpPanel.SetPixel(intX + i, intY, clrPoint)
+            Next i
+            graPanel.DrawImageUnscaled(bmpPanel, 0, 0)
+        Next intY
 
     End Sub
 
