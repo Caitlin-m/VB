@@ -215,11 +215,14 @@ Public Class frmLab1
         pntPoly(2).X = 300
         pntPoly(2).Y = 100
 
-        Dim bshPtoE As New LinearGradientBrush(pntP, pntR, Color.Fuchsia, Color.MediumSlateBlue)
+        Dim bshPtoE As New LinearGradientBrush(pntP, pntR, Color.Fuchsia,
+                                               Color.MediumSlateBlue)
         Dim penPtoE As New Pen(bshPtoE, 10)
-        Dim bshRtoE As New LinearGradientBrush(pntR, pntE, Color.MediumSlateBlue, Color.DarkSalmon)
+        Dim bshRtoE As New LinearGradientBrush(pntR, pntE, Color.MediumSlateBlue,
+                                               Color.DarkSalmon)
         Dim penRtoE As New Pen(bshRtoE, 10)
-        Dim bshEtoR As New LinearGradientBrush(pntE, pntP, Color.DarkSalmon, Color.Fuchsia)
+        Dim bshEtoR As New LinearGradientBrush(pntE, pntP, Color.DarkSalmon,
+                                               Color.Fuchsia)
         Dim penEtoR As New Pen(bshEtoR, 10)
 
         graPanel.DrawLine(penRtoE, pntR, pntE)
