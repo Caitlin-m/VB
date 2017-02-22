@@ -1,5 +1,6 @@
 Option Strict On
 Option Explicit On
+Imports System.Drawing.Drawing2D
 '==============================================================================
 'Project:   Lab 1
 'Tital:     Lab1
@@ -22,7 +23,10 @@ Option Explicit On
 '           btnReset:    clears the screen and displays the welcome message
 '           btnExit:     closes the form and displays a goodbye message
 '==============================================================================
-'Known Bugs:    
+'Known Bugs:    btnConnect works but pnt vars are messy an unclear
+'               Dosen't have the information for lblInfo
+'               ball in btnShapes isn't very pretty
+'               
 '==============================================================================
 Public Class frmLab1
 
@@ -186,10 +190,9 @@ Public Class frmLab1
         Dim rctElip As Rectangle = New Rectangle(50, 90, 100, 150)
         Dim pntPoly(2) As Point
         Dim rctRec As Rectangle = New Rectangle(200, 200, 100, 75)
-        Dim i As Integer
-        Dim intx As Integer
-        Dim intY As Integer
-
+        Dim pntP As Point = New Point(100, 120)
+        Dim pntR As Point = New Point(335, 120)
+        Dim pntE As Point = New Point(280, 202)
 
         pntPoly(0).X = 400
         pntPoly(0).Y = 200
@@ -197,6 +200,17 @@ Public Class frmLab1
         pntPoly(1).Y = 50
         pntPoly(2).X = 300
         pntPoly(2).Y = 100
+
+        Dim bshPtoE As New LinearGradientBrush(pntP, pntR, Color.Fuchsia, Color.MediumSlateBlue)
+        Dim penPtoE As New Pen(bshPtoE, 10)
+        Dim bshRtoE As New LinearGradientBrush(pntR, pntE, Color.MediumSlateBlue, Color.DarkSalmon)
+        Dim penRtoE As New Pen(bshRtoE, 10)
+        Dim bshEtoR As New LinearGradientBrush(pntE, pntP, Color.DarkSalmon, Color.Fuchsia)
+        Dim penEtoR As New Pen(bshEtoR, 10)
+
+        graPanel.DrawLine(penRtoE, pntR, pntE)
+        graPanel.DrawLine(penPtoE, pntP, pntR)
+        graPanel.DrawLine(penEtoR, pntP, pntE)
 
         graPanel.DrawEllipse(pen1, rctElip)
         graPanel.FillEllipse(bsh1, rctElip)
