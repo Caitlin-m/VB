@@ -100,6 +100,8 @@ Public Class frmLab1
         '               two, and then another gradient line between the 
         '               third and first
         '======================================================================
+        Call Reset()
+
         Dim i As Integer
         Dim intW As Integer = pnlDraw.Width
         Dim intH As Integer = pnlDraw.Height
@@ -138,6 +140,7 @@ Public Class frmLab1
         '======================================================================
         'Description:   loads a picture and a mirror copy of the picture
         '======================================================================
+        Call Reset()
 
         Dim i As Integer
         Dim j As Integer
@@ -172,6 +175,8 @@ Public Class frmLab1
         '               connecting them, the gradient lines change depending
         '               on the color of the shape they originate from
         '======================================================================
+        Call Reset()
+
         Dim pen1 As Pen = Pens.Crimson
         Dim bsh1 As Brush = New SolidBrush(Color.Fuchsia)
         Dim pen2 As Pen = Pens.BlueViolet
@@ -181,6 +186,9 @@ Public Class frmLab1
         Dim rctElip As Rectangle = New Rectangle(50, 90, 100, 150)
         Dim pntPoly(2) As Point
         Dim rctRec As Rectangle = New Rectangle(200, 200, 100, 75)
+        Dim i As Integer
+        Dim intx As Integer
+        Dim intY As Integer
 
 
         pntPoly(0).X = 400
@@ -198,7 +206,6 @@ Public Class frmLab1
 
         graPanel.DrawRectangle(pen3, rctRec)
         graPanel.FillRectangle(bsh3, rctRec)
-
 
     End Sub
 
