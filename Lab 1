@@ -11,21 +11,33 @@ Imports System.Drawing.Drawing2D
 '
 'Description:   
 '           btnPictures: displays a picture and a mirror image
+'
 '           btnGradient: displays a red and black gradient, and a green and
 '                        black gradient
+'
 '           btnSahpes:   displays a rectangle that is filled in, a outline of
 '                        a polygon, and a ball
+'
 '           btnDots:     displays a number of randomly collerd dots, number is
 '                        determened by the user
+'
 '           btnConnect:  displays three shapes, draws a gradient line between
 '                        two, and then another gradient line between the 
 '                        third and first
+'
 '           btnReset:    clears the screen and displays the welcome message
-'           btnExit:     closes the form and displays a goodbye message
+'
+'           btnExit:     closes the form And displays a goodbye message
 '==============================================================================
 'Known Bugs:    btnConnect works but pnt vars are messy an unclear
+'
 '               Dosen't have the information for lblInfo
+'
 '               ball in btnShapes isn't very pretty
+'
+'               haven't found a way to clear the screen before btnShapes
+'               without it reloading evertime
+'               
 '               
 '==============================================================================
 Public Class frmLab1
@@ -145,6 +157,7 @@ Public Class frmLab1
         'Description:   loads a picture and a mirror copy of the picture
         '======================================================================
         Call Reset()
+        lblInfo.Text = " "
 
         Dim i As Integer
         Dim j As Integer
@@ -180,6 +193,7 @@ Public Class frmLab1
         '               on the color of the shape they originate from
         '======================================================================
         Call Reset()
+        lblInfo.Text = " "
 
         Dim pen1 As Pen = Pens.Crimson
         Dim bsh1 As Brush = New SolidBrush(Color.Fuchsia)
