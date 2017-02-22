@@ -2,32 +2,32 @@ Option Strict On
 Option Explicit On
 Imports System.Drawing.Drawing2D
 '==============================================================================
-'Project:   Lab 1
-'Tital:     Lab1
-'File Name: 
+'Project:       Lab 1
+'Tital:         Lab1
+'File Name:     Lab 1
 '
-'Author:    Caitlin McMurchie
-'Class:     CS 161 Winter, 2017
+'Author:        Caitlin McMurchie
+'Class:         CS 161 Winter, 2017
 '
 'Description:   
-'           btnPictures: displays a picture and a mirror image
+'               btnPictures: displays a picture and a mirror image
 '
-'           btnGradient: displays a red and black gradient, and a green and
+'               btnGradient: displays a red and black gradient, and a green and
 '                        black gradient
 '
-'           btnSahpes:   displays a rectangle that is filled in, a outline of
+'               btnSahpes:   displays a rectangle that is filled in, a outline of
 '                        a polygon, and a ball
 '
-'           btnDots:     displays a number of randomly collerd dots, number is
+'               btnDots:     displays a number of randomly collerd dots, number is
 '                        determened by the user
 '
-'           btnConnect:  displays three shapes, draws a gradient line between
+'               btnConnect:  displays three shapes, draws a gradient line between
 '                        two, and then another gradient line between the 
 '                        third and first
 '
-'           btnReset:    clears the screen and displays the welcome message
+'               btnReset:    clears the screen and displays the welcome message
 '
-'           btnExit:     closes the form And displays a goodbye message
+'               btnExit:     closes the form And displays a goodbye message
 '==============================================================================
 'Known Bugs:    btnConnect works but pnt vars are messy an unclear
 '
@@ -37,8 +37,7 @@ Imports System.Drawing.Drawing2D
 '
 '               haven't found a way to clear the screen before btnShapes
 '               without it reloading evertime
-'               
-'               
+'
 '==============================================================================
 Public Class frmLab1
 
