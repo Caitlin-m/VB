@@ -77,10 +77,16 @@ Public Class frmAnimation
     Private Sub frmAnimation_KeyDown(sender As Object, e As KeyEventArgs) _
         Handles Me.KeyDown
 
-        If e.KeyCode = Keys.Right Then
+        Dim shtViewWidth As Short = CShort(pnlGame.Width)
+
+        If e.KeyCode = Keys.Right And cshtSpriteX < (shtViewWidth - 3 - bmpSprite.Width) Then
             cshtSpriteX += CShort(3)
         ElseIf e.KeyCode = Keys.Left Then
             cshtSpriteX -= CShort(3)
+        ElseIf e.KeyCode = Keys.Down Then
+            cshtSpriteY += CShort(3)
+        ElseIf e.KeyCode = Keys.Up Then
+            cshtSpriteY -= CShort(3)
         End If
 
     End Sub
