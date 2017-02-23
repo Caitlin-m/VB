@@ -36,7 +36,10 @@ Imports System.Drawing.Drawing2D
 '               ball in btnShapes isn't very pretty
 '
 '               haven't found a way to clear the screen before btnShapes
-'               without it reloading evertime
+'               without it reloading everytime
+'
+'               if too large a number is enterd into Random Dots, it will
+'               crash
 '
 '==============================================================================
 Public Class frmLab1
@@ -73,8 +76,10 @@ Public Class frmLab1
         Dim intH As Integer = pnlDraw.Height - 1
         Dim intX As Integer
         Dim intY As Integer
+        Dim stopwatch As New Stopwatch()
 
-        strDots = InputBox("How many dots do you want?", "Dots amount", "0")
+        stopwatch.Start()
+        strDots = InputBox("How many dots do you want?", "Amount of Dots", "0")
         Dim rand As New Random
 
         Call Reset()
@@ -89,6 +94,15 @@ Public Class frmLab1
                 (rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)))
 
             Call sUpdateScreen()
+
+            stopwatch.Stop()
+            Dim TimSpan As TimeSpan = stopwatch.Elapsed
+            Dim ElapsedTime As String = String.Format _
+            ("{0:00}:{1:00}:{2:00}.{3:00}", TimSpan.Hours, TimSpan.Minutes,
+             TimSpan.Seconds, TimSpan.Milliseconds)
+
+            lblInfo.Text = ("RUNTIME:       " + ElapsedTime)
+
         Next i
 
     End Sub
@@ -203,7 +217,7 @@ Public Class frmLab1
         Dim rctElip As Rectangle = New Rectangle(50, 90, 100, 150)
         Dim pntPoly(2) As Point
         Dim rctRec As Rectangle = New Rectangle(200, 200, 100, 75)
-        Dim pntP As Point = New Point(100, 120)
+        Dim pntP As Point = New Point(130, 120)
         Dim pntR As Point = New Point(335, 120)
         Dim pntE As Point = New Point(280, 202)
 
@@ -218,7 +232,7 @@ Public Class frmLab1
                                                Color.MediumSlateBlue)
         Dim penPtoE As New Pen(bshPtoE, 10)
         Dim bshRtoE As New LinearGradientBrush(pntR, pntE,
-                                               Color.MediumSlateBlue, 
+                                               Color.MediumSlateBlue,
                                                Color.DarkSalmon)
         Dim penRtoE As New Pen(bshRtoE, 10)
         Dim bshEtoR As New LinearGradientBrush(pntE, pntP, Color.DarkSalmon,
@@ -294,7 +308,7 @@ Public Class frmLab1
             Case 2
                 graPanel.DrawEllipse(penBall, 450, 100, 75, 75)
                 graPanel.FillEllipse(bshBall, 450, 100, 75, 75)
-                graPanel.DrawArc(penBall, 450, 100, 10, 50, 10, 90)
+                graPanel.DrawArc(penBall, 450, 100, 15, 55, 5, 90)
 
                 CbytCount = CByte(0)
         End Select
