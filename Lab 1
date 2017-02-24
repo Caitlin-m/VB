@@ -1,6 +1,7 @@
 Option Strict On
 Option Explicit On
 Imports System.Drawing.Drawing2D
+Imports System.Management
 '==============================================================================
 'Project:       Lab 1
 'Tital:         Lab1
