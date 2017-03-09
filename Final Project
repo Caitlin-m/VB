@@ -4,12 +4,12 @@
 '   File Name:          
 '   Date Completed:     
 '
-'   Group Members:      Caitlin, Chistopher, Michael 
-'   Class:              161, 2017, Winter Quarter
+'   Group Members:      Caitlin McMurchie, Chistopher Hale, Michael Guich
+'   Class:              161, 2107, Winter Quarter
 '
 '   Description:        A top down 2D racing game                       
 '                       If you crash 5 times into another car, you loose                  
-'                       Use the arrow keys To move up, down, left, and right                     
+'                       Use the arrow keys To move up, down, left, And right                     
 '                       
 '==============================================================================
 '   Known Bugs:
@@ -73,6 +73,8 @@ Public Class frmFinal
     Dim cshtFrameY As Short
     Dim cshtAnimatedSpriteLength As Short = CShort(bmpSprite.Width)
 
+    Dim cstrStartup As String = Application.StartupPath
+
     Private Sub frmFinal_Load(sender As Object, e As EventArgs) _
         Handles MyBase.Load
         '======================================================================
@@ -84,7 +86,12 @@ Public Class frmFinal
 
         prgHealthBar.Value = 100
 
-        bmpBG = New Bitmap(strPATH & "RaceTrack2.bmp")
+        'cstrStartup = cstrStartup.Substring(0, cstrStartup.Length - "Sounds".Length)
+
+        wmpIntro.URL = "D:\Final Project\161 Final Project\bin\Sounds\Intro.wav"
+        wmpIntro.Ctlcontrols.play()
+
+        bmpBG = New Bitmap(strPATH & "RaceTrack3.bmp")
         graBG = pnlGame.CreateGraphics
         bmpBuffer = New Bitmap(pnlGame.Width, pnlGame.Height, graBG)
         graBGBuffer = Graphics.FromImage(bmpBuffer)
@@ -206,10 +213,13 @@ Public Class frmFinal
                         MsgBox("you've crashed " & shtCrashes.ToString &
                                " time.")
                         prgHealthBar.Value -= 20
+                        wmpCrash.URL = "D:\Final Project\161 Final Project\bin\Sounds\Car Crash.wav"
+                        wmpCrash.Ctlcontrols.play()
                     Else
                         MsgBox("you've crashed " & shtCrashes.ToString &
                                " times.")
                         prgHealthBar.Value -= 20
+                        wmpCrash.Ctlcontrols.play()
                     End If
 
                     'respawn obstacle car
@@ -228,10 +238,12 @@ Public Class frmFinal
                         MsgBox("youve crashed " & shtCrashes.ToString &
                                " time.")
                         prgHealthBar.Value -= 20
+                        wmpCrash.Ctlcontrols.play()
                     Else
                         MsgBox("youve crashed " & shtCrashes.ToString &
                                " times.")
                         prgHealthBar.Value -= 20
+                        wmpCrash.Ctlcontrols.play()
                     End If
 
                     'respawn obstacle car
@@ -250,6 +262,10 @@ Public Class frmFinal
                     i = CShort((bmpBG.Width - shtViewWidth) / (cshtBGXStep *
                         (-1)))
                     MessageBox.Show("YOU LOOSE")
+                    prgHealthBar.Value = 100
+                    wmpLoosing.URL = "D:\Final Project\161 Final Project\bin\Sounds\Music\Outro\Motivator.mp3"
+                    wmpLoosing.Ctlcontrols.play()
+
                 End If
 
                 'i += cshtBGXStep
@@ -257,8 +273,7 @@ Public Class frmFinal
 
             Next i
             graBGBuffer.ResetTransform()
-                blnCrash = False
-            prgHealthBar.Value = 100
+            blnCrash = False
         Loop
             btnStart.Enabled = True
         btnStop.Enabled = True
@@ -321,4 +336,6 @@ Public Class frmFinal
         End If
 
     End Sub
+
+
 End Class
